@@ -18,16 +18,41 @@
  modified 2 Feb 2014
  by Scott Fitzgerald
 
- This example code is in the public domain.
+Modified for ULTRA sample program
 
+ This example code is in the public domain.*/
+ 
+/*
+For ULTRA (Mega1284P board)
+#define OLED_RESET 7
+#define CS_SD 4
  */
+
+/*
+ For ULTRA Zero (SAMD21G18A board)
+#define OLED_RESET 7
+#define CS_SD 10 
+ */
+
+ 
 #include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <SD.h>
 
-#define OLED_RESET 7
+//For ULTRA (Mega1284P, monochrome OLED board)
+#define OLED_RESET 1
+#define CS_SD 4
+///
+
+
+// For ULTRA Zero (SAMD21G18A, monochrome OLED board)
+//#define OLED_RESET 7
+//#define CS_SD 10 
+//
+
+
 Adafruit_SSD1306 display(OLED_RESET);
 int screenMem[46]; //the implementation of frame buffer is referenced from Ben Heck's
 int cursorX = 0;    //Retro BASIC computer's source
@@ -66,7 +91,7 @@ void setup() {
 
 //  Serial.print("Initializing SD card...");
 
-  if (!SD.begin(10)) {
+  if (!SD.begin(CS_SD)) {
   display.setCursor(32,32);
   display.print("CARD NOT");
   display.setCursor(32,40);
